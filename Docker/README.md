@@ -1,16 +1,41 @@
 # How to install docker 
 
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
+chmod +x ./install.sh
 
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+sudo ./install.sh
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Задание поднять LMS
+curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/moodle/docker-compose.yml > docker-compose.yml
+
+sudo docker compose up -d 
+
+##  Если не будет интернета - то запустить docker-compose из этого репозитория
+docker compose up -d
+
+
+## Задание поднять в контейнере бд с использованием volume 
+mkdir /home/postgres_mount #так мы создаем папку, которую будем монтировать в контейнер
+ 
+sudo docker run -d \
+	-p 5432:5432
+	--name my-postgres \
+	-e POSTGRES_PASSWORD=mysecretpassword \
+	-e PGDATA=/var/lib/postgresql/data/pgdata \
+	-v /home/postgres_mount:/var/lib/postgresql/data \
+	postgres
+
+
+## Проброс портов 
+Достаточно добавить к строке запуска контейнера флаг -p
+Сначала идет порт компуктера, потом порт контейнера
+Пример:
+```bash
+sudo docker run -d \
+	-p 5432:5432
+        --name my-postgres \
+        -e POSTGRES_PASSWORD=mysecretpassword \
+        -e PGDATA=/var/lib/postgresql/data/pgdata \
+        -v /home/postgres_mount:/var/lib/postgresql/data \
+        postgres
+```
