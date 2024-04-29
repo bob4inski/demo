@@ -49,7 +49,7 @@ exit
 int gi1/0/3 
 mode routerport 
 des TO_MIKROTIK_HQ
-ip address 10.10.1.1/24
+ip address 10.10.3.1/24
 ip ospf instance 10
 ip ospf area 10.10.0.0
 ip ospf
@@ -61,7 +61,7 @@ exit
 int gi1/0/5 
 mode routerport 
 des TO_MIKROTIK_BR
-ip address 10.10.1.2/24
+ip address 10.10.5.2/24
 ip ospf instance 10
 ip ospf area 10.10.0.0
 ip ospf
@@ -88,7 +88,7 @@ address - это адрес сети в первом случае это 10.10.1
 ### На втором BR также но поменять address и gateway на (ELTEX подключен к 5 порту!)
 ```
 /ip address add address=10.10.5.2/24 interface=ether5
-/routing ospf instance set default redistribute-static=as-type-1  redistribure-connected=as-type-1 r>
+/routing ospf instance set default distribute-default=always-as-type-1 redistribute-static=as-type-1  redistribure-connected=as-type-1 r>
 /routing ospf area add name=backbone0 area-id=10.10.0.0
 /routing ospf network add area=backbone0 network=10.10.0.0/16
 /routing ospf neighbor print
@@ -107,7 +107,6 @@ address - это адрес сети в первом случае это 10.10.1
 /ip pool add name=HQ_pool ranges=10.10.3.17-10.10.3.30
 /ip dhcp-server add address-pool=HQ_pool disabled=no interface=dhcp_hq name=HQ
 /ip dhcp-server network add address=10.10.3.16/28 gateway=10.10.3.17 netmask=28
-
 ```
 
 
@@ -121,23 +120,13 @@ address - это адрес сети в первом случае это 10.10.1
 /ip pool add name=BR_pool ranges=10.10.6.17-10.10.6.30
 /ip dhcp-server add address-pool=BR_pool disabled=no interface=dhcp_BR name=BR
 /ip dhcp-server network add address=10.10.6.16/28 gateway=10.10.6.17 netmask=28
-
 ```
 
-### Очистка nat
+
+## NAT на микротак
+Надо подключить один из микротов по первому порту в интернет и дальше вот такая конфигурация
+
 ```
-ip nat source
-  no ruleset SNAT
-  no pool
-exit
-commit
-confirm
-int gi1/0/3
-  no ip nat proxy-arp PUBLIC
-exit
-no security zone-pair INTERNET LOCALSIRIUS
-no security zone INTERNET
-no security zone LOCALSIRIUS
-no object-group network LOCAL
-no object-group network PUBLIC
+/ip firewall nat add action=masquerade chain=srcnat out-interface=ether1 src-address=10.10.0.0/16
 ```
+
