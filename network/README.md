@@ -73,11 +73,12 @@ exit
 ### на первом микротике HQ (ELTEX подключен к 3 порт микротика, а в 9 и 10 будут поключены компы)
 address - это адрес сети в первом случае это 10.10.1.0/24
 
-В одну сторону у нас идет ELTEX с адресов 10.10.1.1
-А в другую Mikrotik с адресом 10.10.1.2 (порт ether1)
 
 ```
 /ip address add address=10.10.3.2/24 interface=ether3
+втыкаем 1 порт в интернет и прописываем команду
+/ip dhcp-client add disabled=no interface=ether1
+
 /routing ospf instance set default  distribute-default=always-as-type-1 redistribute-static=as-type-1  redistribure-connected=as-type-1 redistribute-rip=as-type-1 router-id=0.0.0.0
 /routing ospf area add name=backbone0 area-id=10.10.0.0
 /routing ospf network add area=backbone0 network=10.10.0.0/16
