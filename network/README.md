@@ -78,7 +78,7 @@ address - это адрес сети в первом случае это 10.10.1
 
 ```
 /ip address add address=10.10.3.2/24 interface=ether3
-/routing ospf instance set default redistribute-static=as-type-1  redistribure-connected=as-type-1 redistribute-rip=as-type-1 router-id=0.0.0.0
+/routing ospf instance set default  distribute-default=always-as-type-1 redistribute-static=as-type-1  redistribure-connected=as-type-1 redistribute-rip=as-type-1 router-id=0.0.0.0
 /routing ospf area add name=backbone0 area-id=10.10.0.0
 /routing ospf network add area=backbone0 network=10.10.0.0/16
 
