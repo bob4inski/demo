@@ -115,6 +115,8 @@ exit
 /interface bridge port add bridge=dhcp_hq interface=ether9
 /interface bridge port add bridge=dhcp_hq interface=ether10
 /ip address add address= 10.10.3.17/28 interface=dhcp_hq network=10.10.3.16
+это надо чтобы на втором микроте были днс сервера, они почему-то не передаются на второй микротик
+/ip dns servers=77.88.8.88,77.88.8.2
 
 /ip pool add name=HQ_pool ranges=10.10.3.17-10.10.3.30
 /ip dhcp-server add address-pool=HQ_pool disabled=no interface=dhcp_hq name=HQ
