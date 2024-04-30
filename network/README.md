@@ -115,8 +115,6 @@ exit
 /interface bridge port add bridge=dhcp_hq interface=ether9
 /interface bridge port add bridge=dhcp_hq interface=ether10
 /ip address add address= 10.10.3.17/28 interface=dhcp_hq network=10.10.3.16
-это надо чтобы на втором микроте были днс сервера, они почему-то не передаются на второй микротик
-/ip dns servers=77.88.8.88,77.88.8.2
 
 /ip pool add name=HQ_pool ranges=10.10.3.17-10.10.3.30
 /ip dhcp-server add address-pool=HQ_pool disabled=no interface=dhcp_hq name=HQ
@@ -161,6 +159,8 @@ exit
 /ip pool add name=BR_pool ranges=10.10.5.17-10.10.5.30
 /ip dhcp-server add address-pool=BR_pool disabled=no interface=dhcp_BR name=BR
 /ip dhcp-server network add address=10.10.5.16/28 gateway=10.10.5.17 netmask=28
+# Чтобы на втором микроте были днс сервера, необходимо выполнить следующую команду (чтобы браузер открылся)
+/ip dns servers=77.88.8.88,77.88.8.2
 
 # Проверка, что DHCP работает:
 - Подключите ноутбук консольным кабелем к порту микротика
