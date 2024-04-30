@@ -33,6 +33,10 @@ sudo putty
 password <тут пароль123>
 commit
 confirm
+
+
+зайти в конфигурационный режим
+configure 
 ```
 
 ## 1. Настройка OSPF на Eltex:
