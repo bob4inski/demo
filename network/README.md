@@ -92,7 +92,7 @@ exit
 # Конфигурация портов:
 /ip address add address=10.10.3.2/24 interface=ether3
 # Втыкаем 1 порт Mikrotik в интернет (кабель в пол) и прописываем команду:
-/ip dhcp-client add disabled=no interface=ether1
+/ip dhcp-client add disabled=no interface=ether1 use-peer-dns=yes use-peer-ntp=yes
 
 # Включаем НАТ для работы интернета:
 /ip firewall nat add action=masquerade chain=srcnat out-interface=ether1 src-address=10.10.0.0/16
