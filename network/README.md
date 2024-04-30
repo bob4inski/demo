@@ -103,7 +103,8 @@ exit
 # Проверка, что OSPF работает:
 /routing ospf neighbor print
 
-# Настройка DHCP:
+# Настройка DHCP (командой bridge port add мы обьединяем в 1 логический интерфейс 2 физических, 
+то есть порты 9 и 10 будут использоваться для подключения компов и выдаче адресов по DHCP):
 /interface bridge add name=dhcp_hq 
 /interface bridge port add bridge=dhcp_hq interface=ether9
 /interface bridge port add bridge=dhcp_hq interface=ether10
@@ -114,13 +115,10 @@ exit
 /ip dhcp-server network add address=10.10.3.16/28 gateway=10.10.3.17 netmask=28
 
 
-# Как проверить что DHCP работает
-ПОдключаем ноутбук к порту микротика и на ноутбуке пишем команду
-ip a 
-
-Смотрим чтобы был адрес с началом 10.10
-
-
+# Проверка, что DHCP работает:
+- Подключите ноутбук консольным кабелем к порту микротика
+- На ноутбуке напишите команду `ip a` 
+- Если адрес с началом 10.10, то все ок
 
 ```
 # Заходим на Mikrotik2 (для этого консольник вытыкаем из Mikrotik1 втыкаем в Mikrotik2):
@@ -130,32 +128,23 @@ ip a
 2) На пустом маршрутизаторе при входе установлены дефолт логин пароль:
   (дефолтный логин-пароль : admin- (пустой пароль))
 
-## 2. Настройка на Mikrotik2:
-
-
-
-
-
-  
-  
-## 1. Настройка OSPF на Mikrotik2:
+## 2. Настройка на Mikrotik2 (он же BR) :
 ```
+/system identity set name=BR
+
+# Конфигурация портов:
 /ip address add address=10.10.5.2/24 interface=ether5
-/routing ospf instance set default redistribute-static=as-type-1  redistribure-connected=as-type-1 r>
+
+# Настройка  OSPF:
+/routing ospf instance set default redistribute-static=as-type-1  redistribure-connected=as-type-1 redistribute-rip=as-type-1 router-id=0.0.0.0
 /routing ospf area add name=backbone0 area-id=10.10.0.0
 /routing ospf network add area=backbone0 network=10.10.0.0/16
+
+# Проверка, что OSPF работает:
 /routing ospf neighbor print
-```
 
-## DHCP на микротах
-На HQ:
-Командой bridge port add мы обьединяем в 1 логический интерфейс 2 физических! 
-То есть порты 9 и 10 будут для подключения компов и выдаче адресов по DHCP
-
-
-
-На BR:
-```
+# Настройка DHCP (командой bridge port add мы обьединяем в 1 логический интерфейс 2 физических, 
+то есть порты 9 и 10 будут использоваться для подключения компов и выдаче адресов по DHCP)
 /interface bridge add name=dhcp_BR 
 /interface bridge port add bridge=dhcp_BR interface=ether9
 /interface bridge port add bridge=dhcp_BR interface=ether10
@@ -164,7 +153,12 @@ ip a
 /ip pool add name=BR_pool ranges=10.10.5.17-10.10.5.30
 /ip dhcp-server add address-pool=BR_pool disabled=no interface=dhcp_BR name=BR
 /ip dhcp-server network add address=10.10.5.16/28 gateway=10.10.5.17 netmask=28
-```
+
+# Проверка, что DHCP работает:
+- Подключите ноутбук консольным кабелем к порту микротика
+- На ноутбуке напишите команду `ip a` 
+- Если адрес с началом 10.10, то все ок
+
 
 
 
