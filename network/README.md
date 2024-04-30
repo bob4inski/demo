@@ -5,15 +5,15 @@
 4. Настроить DHCP на MICROTIK
 5. Настроить NAT
 
-Описание сети:
-- 2 микротика - BR и HQ
-- Eltex
+### Описание сети, вводные данные:
+- 2 Mikrotik - BR и HQ (дефолтный логин-пароль : admin- (пустой пароль))
+- Eltex (дефолтный логин-пароль : admin-password)
 
-# 1. Подключение
+# Подключение
 Подключение будет производиться через Putty:
 ```bash
-sudo yum install putty
-sudo yum remove brltty
+sudo apt install putty
+sudo apt remove brltty
 sudo putty
 ```
 
@@ -22,22 +22,20 @@ sudo putty
 2) Выставить скорость 115200
 3) Во вкладке FONTS изменить шрифт 
 
-
-На пустом маршрутизаторе при входе установлены дефолт логин пароль:
+# Заходим на ELTEX (для этого консольник втыкаем в Eltex):
+1) На пустом маршрутизаторе при входе установлены дефолт логин пароль:
 - (eltex) admin:password
-- (mikrotik) admin и пустой пароль
 
-После первичного подключения к элтексу необходимо произвести смену пароля:
+2) После первичного подключения к Eltex необходимо произвести смену пароля:
+```
 password <тут пароль123>
 commit
 confirm
+```
 
-ПЕРЕД ТЕМ КАК ЧТО-ТО ДЕЛАТЬ НА МИКРОТИКЕ СДЕЛАЙТЕ СБРОС КОНФИГУРАЦИИ
-команда для сброса ```system reset-configuration```
-!!!!!!!! После сброса надо будет ** ввести букву r ** (чтобы был пустой микротик)
+## 1. Настройка OSPF на Eltex:
+- вся настройка производится в режиме конфигурации, для этого необходимо ввести команду `configure`
 
-# 2. OSPF
-## На ELTEX
 ```
 router ospf 10
 area 10.10.0.0
@@ -49,7 +47,7 @@ redistribute static
 enable
 exit
 ```
-## Конфигурируем порты Eltex
+## 2. Конфигурируем порты Eltex:
 
 Порт 1:
 ```
@@ -68,36 +66,79 @@ exit
 int gi1/0/5 #в этой строчке указан номер порта Eltex, который подключен к Mikrotik2
 mode routerport 
 des TO_MIKROTIK_BR
-ip address 10.10.5.2/24
+ip address 10.10.5.1/24
 ip ospf instance 10
 ip ospf area 10.10.0.0
 ip ospf
 ip firewall disable
 exit
 ```
-Заботливо напоминаем, что перед любыми манипуляциями на Mikrotik необходимо произвести сброс конфигурации:
+Поздравляю! Выйдите из режима конфигурации с помощью команды `end` и сохраните конфигурацию с помощью команды `commit`, примените конфигурацию с помощью команды `confirm`
+
+# Заходим на Mikrotik1 (для этого консольник вытыкаем из Eltex втыкаем в Mikrotik1):
+1) Заботливо напоминаем, что перед любыми манипуляциями на Mikrotik необходимо произвести сброс конфигурации:
 - Введите команду ```system reset-configuration```
 - Нажмите буковку "r"
-## На Mikrotik
-### на первом микротике HQ (ELTEX подключен к 3 порт микротика, а в 9 и 10 будут поключены компы)
-address - это адрес сети в первом случае это 10.10.1.0/24
+2) На пустом маршрутизаторе при входе установлены дефолт логин пароль:
+  (дефолтный логин-пароль : admin- (пустой пароль))
 
+## 1. Настройка на Mikrotik1 (он же HQ):
 
 ```
-/ip address add address=10.10.3.2/24 interface=ether3
-втыкаем 1 порт в интернет и прописываем команду
-/ip dhcp-client add disabled=no interface=ether1
-/ip firewall nat add action=masquerade chain=srcnat out-interface=ether1 src-address=10.10.0.0/16
-Вот этой командой сверху мы включаем нат чтобы интернет работал
+/system identity set name=HQ
 
+# Конфигурация портов:
+/ip address add address=10.10.3.2/24 interface=ether3
+# Втыкаем 1 порт Mikrotik в интернет (кабель в пол) и прописываем команду:
+/ip dhcp-client add disabled=no interface=ether1
+
+# Включаем НАТ для работы интернета:
+/ip firewall nat add action=masquerade chain=srcnat out-interface=ether1 src-address=10.10.0.0/16
+
+# Настройка  OSPF:
 /routing ospf instance set default  distribute-default=always-as-type-1 redistribute-static=as-type-1  redistribure-connected=as-type-1 redistribute-rip=as-type-1 router-id=0.0.0.0
 /routing ospf area add name=backbone0 area-id=10.10.0.0
 /routing ospf network add area=backbone0 network=10.10.0.0/16
 
-!проверка что работает
+# Проверка, что OSPF работает:
 /routing ospf neighbor print
+
+# Настройка DHCP:
+/interface bridge add name=dhcp_hq 
+/interface bridge port add bridge=dhcp_hq interface=ether9
+/interface bridge port add bridge=dhcp_hq interface=ether10
+/ip address add address= 10.10.3.17/28 interface=dhcp_hq network=10.10.3.16
+
+/ip pool add name=HQ_pool ranges=10.10.3.17-10.10.3.30
+/ip dhcp-server add address-pool=HQ_pool disabled=no interface=dhcp_hq name=HQ
+/ip dhcp-server network add address=10.10.3.16/28 gateway=10.10.3.17 netmask=28
+
+
+# Как проверить что DHCP работает
+ПОдключаем ноутбук к порту микротика и на ноутбуке пишем команду
+ip a 
+
+Смотрим чтобы был адрес с началом 10.10
+
+
+
 ```
-### На втором BR также но поменять address и gateway на (ELTEX подключен к 5 порту!)
+# Заходим на Mikrotik2 (для этого консольник вытыкаем из Mikrotik1 втыкаем в Mikrotik2):
+1) Заботливо напоминаем, что перед любыми манипуляциями на Mikrotik необходимо произвести сброс конфигурации:
+- Введите команду ```system reset-configuration```
+- Нажмите буковку "r"
+2) На пустом маршрутизаторе при входе установлены дефолт логин пароль:
+  (дефолтный логин-пароль : admin- (пустой пароль))
+
+## 2. Настройка на Mikrotik2:
+
+
+
+
+
+  
+  
+## 1. Настройка OSPF на Mikrotik2:
 ```
 /ip address add address=10.10.5.2/24 interface=ether5
 /routing ospf instance set default redistribute-static=as-type-1  redistribure-connected=as-type-1 r>
@@ -110,16 +151,7 @@ address - это адрес сети в первом случае это 10.10.1
 На HQ:
 Командой bridge port add мы обьединяем в 1 логический интерфейс 2 физических! 
 То есть порты 9 и 10 будут для подключения компов и выдаче адресов по DHCP
-```
-/interface bridge add name=dhcp_hq 
-/interface bridge port add bridge=dhcp_hq interface=ether9
-/interface bridge port add bridge=dhcp_hq interface=ether10
-/ip address add address 10.10.3.17/28 interface=dhcp_hq network=10.10.3.16
 
-/ip pool add name=HQ_pool ranges=10.10.3.17-10.10.3.30
-/ip dhcp-server add address-pool=HQ_pool disabled=no interface=dhcp_hq name=HQ
-/ip dhcp-server network add address=10.10.3.16/28 gateway=10.10.3.17 netmask=28
-```
 
 
 На BR:
