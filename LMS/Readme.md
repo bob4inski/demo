@@ -18,7 +18,19 @@ http://<ip компьютера на котором развернули>:80
 
 ![alt text](image.png)
 
+В разделе Home заполняем все необходимые окошки (они подсвечены красным значком) и внизу нажимаем на кнопку регистрации сайта
+
 Нужно зайти в site administration и промотать в самый низ до панели Site Home![alt text](image-1.png)
 
-И в разделе Site home settings меняем Full Site name
+И в разделе Site home settings меняем "Full Site name" на номер своего места + меняем Short name 
 
+Снова в site administration -> Uploud users
+нажимаем на choose file и по пути нахождения файла в репе по итогу users.csv
+CSV Ceparator на ";"
+New user passw -> Field reueired file
+Force ... -> None
+
+Снова идем в раздел Users -> Нажимаем на "cohorts"
+Создаем новую группу с помощью "Add new cohort" и по аналогии создаем группы согласно заданию по очереди (4 группы)
+
+Около иени группы нажимаем на шестеренку и нажимаем на Assign, согласно заданию к каждой группе добавляем с помощью Add участников
