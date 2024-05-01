@@ -37,8 +37,6 @@ sudo docker compose -f wiki.yml up -d
 9. Выполните команду ` touch ~/LocalSettings.php` и перейдите в файл с помощью команды `nano ~/LocalSettings.php` и вставьте содержимое с п.8
 
 
+10. Перезапустите docker с помощью команды `sudo docker compose -f wiki.yml up --build -d`
 
-#перезапускаете docker
-sudo docker compose -f wiki.yml up --build -d
-```
 
