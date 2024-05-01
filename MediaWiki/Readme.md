@@ -13,14 +13,20 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
+
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
 ```
 ## MediaWiki
 
 1. Создайте файл docker-compose-media-wiki.yml с помощью команд:
 
 ```bash
-cd /demo/MediaWiki/
-cat docker-compose.yml # Скопируйте содержимое файла docker-compose.yml 
+cat docker-compose.yml # Скопируйте содержимое файла docker-compose.yml  
+#Это файл docker-compose в этой папке есть, его просто скопируйте
+
 touch ~/wiki.yml
 nano ~/wiki.yml # Вставьте в файл ~/wiki.yml содержимое файла docker-compose.yml  
 ```

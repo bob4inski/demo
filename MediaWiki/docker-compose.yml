@@ -5,7 +5,7 @@ services:
     image: mediawiki
     restart: always
     ports:
-      - 8081:80
+      - 8080:80
     links:
       - db
     volumes:
