@@ -1,0 +1,29 @@
+version: '3'
+services:
+  MediaWiki:
+    container_name: wiki
+    image: mediawiki
+    restart: always
+    ports:
+      - 8081:80
+    links:
+      - db
+    volumes:
+      - images:/var/www/html/images
+     # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: mediawiki
+      MYSQL_USER: wiki
+      MYSQL_PASSWORD: DEP@sswOrd
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - dbvolume:/var/lib/mysql
+
+volumes:
+  images:
+  dbvolume:
+    external: true
