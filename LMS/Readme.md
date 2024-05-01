@@ -21,3 +21,4 @@ http://<ip компьютера на котором развернули>:80
 Нужно зайти в site administration и промотать в самый низ до панели Site Home![alt text](image-1.png)
 
 И в разделе Site home settings меняем Full Site name
+
