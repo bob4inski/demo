@@ -1,5 +1,10 @@
 # How to install docker 
 
+
+Либо переходите по ссылке https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+Либо делайте команды снизу 
+
+P.S Спойлер они одинаковые
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
