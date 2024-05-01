@@ -22,7 +22,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ## MediaWiki
 
 1. Создайте файл docker-compose-media-wiki.yml с помощью команд:
-
+User6;User6;User6;User6@example.com;P@ssw0rd
 ```bash
 cat docker-compose.yml # Скопируйте содержимое файла docker-compose.yml  
 #Это файл docker-compose в этой папке есть, его просто скопируйте
