@@ -1,6 +1,6 @@
 username;firstname;lastname;email;password
 Manager1;Manager1;Manager1;Manager1@example.com;P@ssw0rd
-Manager2;Manager2;Manager2;Manager3@example.com;P@ssw0rd
+Manager2;Manager2;Manager2;Manager2@example.com;P@ssw0rd
 Manager3;Manager3;Manager2;Manager3@example.com;P@ssw0rd
 User1;User1;User1;User1@example.com;P@ssw0rd
 User2;User2;User2;User2@example.com;P@ssw0rd
@@ -8,4 +8,5 @@ User3;User3;User3;User3@example.com;P@ssw0rd
 User4;User4;User4;User4@example.com;P@ssw0rd
 User5;User5;User5;User5@example.com;P@ssw0rd
 User6;User6;User6;User6@example.com;P@ssw0rd
+User7;User7;User7;User7@example.com;P@ssw0rd
 
