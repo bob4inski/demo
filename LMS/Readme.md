@@ -3,7 +3,7 @@
 1. Скачиваем докер композ файл с офиц репозитория 
 ```bash
 curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/moodle/docker-compose.yml > docker-compose.yml
-docker-compose up -d
+sudo docker compose up -d
 ```
 
 2. После того, как контейнеры поднялись идем по ссылке
