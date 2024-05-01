@@ -38,7 +38,7 @@ sudo exportfs -a
 1. Необходимо создать папки, в которые будут организованы, как обменник
 ```bash
 sudo mkdir /mnt
-sudo mkdir /mnt/Branch_Files /mnt/Network /mnt/Admin_Files
+mkdir /mnt/Branch_Files /mnt/Network /mnt/Admin_Files
 ```
 
 2. Введите следующие команды и в открывшемся файле вставьте записи для постоянного монтирования. Вместо ip nfs server вставьте адрес, полученный в п.4 с помощью команды ip a
