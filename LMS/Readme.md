@@ -14,23 +14,29 @@ http://<ip компьютера на котором развернули>:80
 Пользователь - user
 Пароль - bitnami 
 
-Далее будет такая менюшка
+после авторизации необходимо перейти во вкладку "site administration", где необходимо заполнить поля с красным восклицательным знаком
 
-![alt text](image.png)
+нажать "register your site", после continue 
 
-В разделе Home заполняем все необходимые окошки (они подсвечены красным значком) и внизу нажимаем на кнопку регистрации сайта
+пролистать вниз до заголовка "Site home", выбрать  "Site home settings" и укажите новое название сайта, короткое имя и сохраните изменения (если все успешно, сверху появится ненавязчивая зеленая плашка Changes saved)
 
-Нужно зайти в site administration и промотать в самый низ до панели Site Home![alt text](image-1.png)
+Снова перейдите в "Site administration" -> "Users" -> Accounts (заголовок) -> Upload users
 
-И в разделе Site home settings меняем "Full Site name" на номер своего места + меняем Short name 
+Нажмите choose a file, upload a file -> обзор
 
-Снова в site administration -> Uploud users
-нажимаем на choose file и по пути нахождения файла в репе по итогу users.csv
-CSV Ceparator на ";"
-New user passw -> Field reueired file
-Force ... -> None
+Найдите файл users.csv (Домашняя папка -> demo -> LMS -> users.csv) и выберете его
 
-Снова идем в раздел Users -> Нажимаем на "cohorts"
-Создаем новую группу с помощью "Add new cohort" и по аналогии создаем группы согласно заданию по очереди (4 группы)
+Нажмите Upload this file
 
-Около иени группы нажимаем на шестеренку и нажимаем на Assign, согласно заданию к каждой группе добавляем с помощью Add участников
+CSV separator выберете ;
+
+В Settings:
+upload type: add new only, skip existing users
+new user password: field requires in file
+force password: none
+
+Сохраните 
+
+Снова перейдите на вкладку Users и выберете Cohorts (у заголовка Accounts) -> Add new cohorts и создайте комнаты согласно таблице (Team,Admin, Manager, WS)
+
+После созданных груп, нажмите на шестеренку возле каждый, выберете Assign и добавьте согласно таблице
