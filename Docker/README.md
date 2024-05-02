@@ -23,5 +23,25 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 
+# После установки
 
+1. отредактировать /etc/docker/daemon.json : sudo nano /etc/docker/daemon.json
+
+
+записать туда
+{
+  "live-restore": true,
+  "bip": "172.20.0.1/16",
+  "default-address-pools": [{
+    "base": "172.20.0.0/8",
+    "size": 16
+  }]
+}
+
+важная строка "bip": "172.20.0.1/16" - это смена подсети докера, чтобы она не конфликтовала с адресом сервера авторизации wi-fi
+
+после сохранения файла перезапустить службу докера: sudo service docker restart
+и проверить настройки docker network inspect bridge
+
+Там должен появиться диапазон 172.20.0.0/16
 
