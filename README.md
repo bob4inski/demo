@@ -6,3 +6,8 @@
 Чтобы посмотреть ридми пишите
 cd <название какой-то папки> 
 cat Readme.md
+
+
+Еще при настройке серверов надо задать им имена
+
+sudo hostnamectl set-hostname new-hostname
