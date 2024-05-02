@@ -1,6 +1,7 @@
 # Запуск MediaWiki
 ## Установка Docker
-```
+
+copy
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -14,45 +15,40 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-
-```
 ## MediaWiki
 
 1. Создайте файл docker-compose-media-wiki.yml с помощью команд:
-User6;User6;User6;User6@example.com;P@ssw0rd
-```bash
-cat docker-compose.yml # Скопируйте содержимое файла docker-compose.yml  
-#Это файл docker-compose в этой папке есть, его просто скопируйте
 
+c
+
+Bash
+d /demo/MediaWiki/
+cat docker-compose.yml # Скопируйте содержимое файла docker-compose.yml 
 touch ~/wiki.yml
 nano ~/wiki.yml # Вставьте в файл ~/wiki.yml содержимое файла docker-compose.yml  
-```
+
 
 2. Поднимаем MediaWiki:
    
-```bash
-sudo docker volume create dbvolume
+s
+
+Bash
+udo docker volume create dbvolume
 sudo docker compose -f wiki.yml up -d
-```
+
 3. Вспомните адрес устройства с помощью команды ip a
 
 4. Онлайн-установка Wiki:
-- Перейдите по адресу http://<ip адрес, который узнали в п.3>:8080
+- Перейдите по адресу http://<ip адрес, который узнали в п.3>:8081
 
-4. Настал момент установки. Укажите логин,пароль (указаны в задании) и адрес подключения к базе - db (да, всего две буквы)
-5. После конца установки нажмите кнопку "Скачать" для загрузки файла LocalSetting.php 
-В БРАУЗЕРЕ БОЛЬШЕ НИЧЕГО НЕ ДЕЛАЙТЕ
-6. Перейдите в файл wiki.yml с помощью команды `nano ~/wiki.yml` ЧТОБЫ ОТРЕДАКТИРОВАТЬ ЕГО НА СЕРВЕРЕ
-7. В этом файле РАССКОМЕНТИРУЙТЕ # - ./LocalSettings.php:/var/www/html/LocalSettings.php
-8. Из загрузок откройте скаченный файл LocalSetting.php в текстовом редакторе и скопируйте его содержимое
-9. Выполните команду ` touch ~/LocalSettings.php` и перейдите в файл с помощью команды `nano ~/LocalSettings.php` и вставьте содержимое с п.8
-
-
-10. Перезапустите docker с помощью команды `sudo docker compose -f wiki.yml up --build -d`
-11. откройте браузер по адресу http://<ip адрес, который узнали в п.3>:8080
+4. Настал момент установки. Укажите логин (мы делали wiki),пароль (указаны в докер-композ файле) и хост базы данных - db (да, всего две буквы)
+5. На странице установки введите кастомное название (желательно с вашим именем), выбрать "то же, что иия вики" в пункте пространство имен
+6. Задайте имя и пароли, электронную почту и выберете пункт "Хватит, установить вики"
+7. После конца установки нажмите кнопку "Скачать" для загрузки файла LocalSetting.php
+8. Перейдите в файл wiki.yml с помощью команды nano ~/wiki.yml
+9. В этом файле РАССКОМЕНТИРУЙТЕ # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+10. Из загрузок откройте скаченный файл LocalSetting.php в текстовом редакторе и скопируйте его содержимое
+11. Выполните команду  touch ~/LocalSettings.php и перейдите в файл с помощью команды nano ~/LocalSettings.php и вставьте содержимое с п.8
 
 
-
+12. Перезапустите docker с помощью команды sudo docker compose -f wiki.yml up --build -d
