@@ -46,4 +46,4 @@ sudo docker compose -f wiki.yml up -d
 9. В этом файле РАССКОМЕНТИРУЙТЕ # - ./LocalSettings.php:/var/www/html/LocalSettings.php
 10. Из загрузок откройте скаченный файл LocalSetting.php в текстовом редакторе и скопируйте его содержимое
 11. Выполните команду  touch ~/LocalSettings.php и перейдите в файл с помощью команды nano ~/LocalSettings.php и вставьте содержимое с п.8
-12. Перезапустите docker с помощью команды sudo docker compose -f wiki.yml up --build -d
+12. Перезапустите docker с помощью команды `sudo docker compose -f wiki.yml up --build -d`
