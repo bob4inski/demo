@@ -1,12 +1,12 @@
 # Запуск MediaWiki
 ## Установка Docker
-
-copy
+```
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
 
 # Add the repository to Apt sources:
 echo \
@@ -15,18 +15,17 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
+` sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin `
+
 ## MediaWiki
 
 1. Создайте файл docker-compose-media-wiki.yml с помощью команд:
-
-c
-
-Bash
-d /demo/MediaWiki/
+```
+cd /demo/MediaWiki/
 cat docker-compose.yml # Скопируйте содержимое файла docker-compose.yml 
 touch ~/wiki.yml
 nano ~/wiki.yml # Вставьте в файл ~/wiki.yml содержимое файла docker-compose.yml  
-
+```
 
 2. Поднимаем MediaWiki:
    
