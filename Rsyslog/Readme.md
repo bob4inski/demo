@@ -87,6 +87,8 @@ ls /var/log/rsyslog/
 # и в каждой папке есть логи каждого сервера
 server-br  server-hq
 ```
+Если не будет выводиться, то можно попробовать перезапустить с помощью команды
+sudo systemctl restart rsyslog
 
 
 
