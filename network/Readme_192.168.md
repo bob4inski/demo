@@ -160,7 +160,7 @@ exit
 /ip dhcp-server add address-pool=BR_pool disabled=no interface=dhcp_BR name=BR
 /ip dhcp-server network add address=192.168.5.16/28 gateway=192.168.5.17 netmask=28
 # Чтобы на втором микроте были днс сервера, необходимо выполнить следующую команду (чтобы браузер открылся)
-/ip dns servers=77.88.8.88,77.88.8.2
+/ip dns set servers=77.88.8.88,77.88.8.2
 
 # Проверка, что DHCP работает:
 - Подключите ноутбук консольным кабелем к порту микротика
