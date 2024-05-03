@@ -31,7 +31,8 @@ add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0
 add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0/16 protocol=tcp port=13022
 add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0/16 protocol=udp port=13022
 
+add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0/16 protocol=udp port=67
+add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0/16 protocol=udp port=68
 
-# применять не надо!
-!!!!!!!!!!!add chain=input action=drop
+add chain=input action=drop
 ```
