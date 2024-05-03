@@ -1,5 +1,9 @@
 # Как поднять LMS
 
+0. Сначала устанавливаем докер:
+
+
+
 1. Скачиваем докер композ файл с офиц репозитория 
 ```bash
 curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/moodle/docker-compose.yml > docker-compose.yml
