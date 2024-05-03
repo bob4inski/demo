@@ -40,6 +40,7 @@ sudo exportfs -a
 
 1. Необходимо создать папки, в которые будут организованы, как обменник
 ```bash
+sudo apt update
 sudo mkdir /mnt
 sudo mkdir /mnt/Branch_Files /mnt/Network /mnt/Admin_Files
 ```
