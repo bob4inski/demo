@@ -1,3 +1,7 @@
+Консольный кабель в Микротике BR
+Пишу в терминале 
+ssh admin@192.168.5.2
+
 /ip firewall filter
 ```
 #разрешаем icmp
@@ -34,5 +38,11 @@ add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0
 add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0/16 protocol=udp port=67
 add chain=input action=accept src-address=192.168.0.0/16 dst-address=192.168.0.0/16 protocol=udp port=68
 
-add chain=input action=drop
+### не прописываем, чего-то не хватает add chain=input action=drop
 ```
+
+Чтобы выйти пишем quit
+
+Чтобы показать, что файерволл настроили опять захожу в админку и пишу 
+/ip firewall filter print
+
