@@ -19,7 +19,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```
 
 ## MediaWiki
-0. Выполните команду cat docker-compose.yml и скопируйте содержимое файла
+0.  Зайдите в папку demo и в Медиавики и выполните команду cat docker-compose.yml и скопируйте содержимое файла
 
 1. Создайте файл docker-compose-media-wiki.yml с помощью команд:
 
