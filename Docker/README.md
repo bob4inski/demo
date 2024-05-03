@@ -39,7 +39,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 важная строка "bip": "172.20.0.1/16" - это смена подсети докера, чтобы она не конфликтовала с адресом сервера авторизации wi-fi
 
 после сохранения файла перезапустить службу докера: sudo service docker restart
-и проверить настройки docker network inspect bridge
+и проверить настройки sudo docker network inspect bridge
 
 Там должен появиться диапазон 172.20.0.0/16
 
