@@ -79,7 +79,7 @@ sudo nano /etc/rsyslog.d/all.conf
 sudo systemctl restart rsyslog
 ```
 
-# Проверка 
+# Проверка + показываю, что работает (сделать скрины и подписать, что вот такие команды ввожу и получаю результат)
 
 ```bash
 ls /var/log/rsyslog/
