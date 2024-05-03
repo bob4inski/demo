@@ -31,4 +31,5 @@ add chain=input action=accept src-address=10.10.0.0/16 dst-address=10.10.0.0/16 
 add chain=input action=accept src-address=10.10.0.0/16 dst-address=10.10.0.0/16 protocol=tcp port=13022
 add chain=input action=accept src-address=10.10.0.0/16 dst-address=10.10.0.0/16 protocol=udp port=13022
 
+add chain=input action=drop
 ```
