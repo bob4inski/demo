@@ -6,6 +6,8 @@
 
 1. Пусть сервером с NFS будет компьютер HP, подключенный к маршрутизатору Mikrotik HQ. В терминале необходимо прописать команды:
 ```
+sudo apt update
+sudo apt install nfs-kernel-server
 sudo mkdir -m 777 /Branch_Files /Network /Admin_Files `  
 sudo nano /etc/exports
 ```
@@ -38,7 +40,7 @@ sudo exportfs -a
 1. Необходимо создать папки, в которые будут организованы, как обменник
 ```bash
 sudo mkdir /mnt
-mkdir /mnt/Branch_Files /mnt/Network /mnt/Admin_Files
+sudo mkdir /mnt/Branch_Files /mnt/Network /mnt/Admin_Files
 ```
 
 2. Введите следующие команды и в открывшемся файле вставьте записи для постоянного монтирования. Вместо ip nfs server вставьте адрес, полученный в п.4 с помощью команды ip a
